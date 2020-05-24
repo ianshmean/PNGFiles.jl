@@ -29,7 +29,7 @@ jobs:
         run: julia --project -e 'using Pkg; Pkg.add("PackageCompiler");'
       - name: Generate sysimage
         run: |
-          julia --project -e 'using PackageCompiler; create_sysimage(:${{ steps.pkg.outputs.packagename }}, sysimage_path="${{ steps.pkg.outputs.sysimagename }}")'    
+          julia --project -e 'using PackageCompiler; create_sysimage(:${{ steps.pkg.outputs.packagename }}, sysimage_path="${{ steps.pkg.outputs.sysimagename }}", cpu_target=PackageCompiler.default_app_cpu_target())'    
       - name: Upload Release Asset
         id: upload-release-asset 
         uses: actions/upload-release-asset@v1
