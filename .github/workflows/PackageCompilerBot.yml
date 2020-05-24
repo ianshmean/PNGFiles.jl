@@ -11,7 +11,7 @@ jobs:
       matrix:
         julia-version: ['1.4']
         julia-arch: [x64]
-        os: [ubuntu-latest, macOS-latest, windows-latest]
+        os: [ubuntu-latest, macOS-latest]
         exclude:
           - os: macOS-latest
             julia-arch: x86
@@ -61,9 +61,9 @@ jobs:
         id: upload-release-asset 
         uses: actions/upload-release-asset@v1
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
         with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          upload_url: ${{ event.release.upload_url }}
           asset_path: ./${{ steps.pkg.outputs.sysimagename }}
           asset_name: ${{ steps.pkg.outputs.sysimagename }}
           asset_content_type: application/zip
